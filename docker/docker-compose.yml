@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+
+  java-app:
+    build:
+      context: ../
+#      target: development
+      dockerfile: ./docker/app/Dockerfile
+    ports:
+      - "5005:5005"
+    volumes:
+      - ../:/app
