@@ -1,13 +1,24 @@
 version: '3.7'
 
+volumes:
+  java-app-maven-repo: {}
+
 services:
 
   java-app:
     build:
       context: ../
-#      target: development
       dockerfile: ./docker/app/Dockerfile
-    ports:
-      - "5005:5005"
     volumes:
       - ../:/app
+
+  java-app-test:
+    image: java-app-test
+    build:
+      target: base
+      context: ../
+      dockerfile: ./docker/app/Dockerfile
+    working_dir: /app
+    volumes:
+      - ../:/app
+      - java-app-maven-repo:/root/.m2
